@@ -3,6 +3,13 @@
   <Nav></Nav>
   <!-- 内容 -->
   <div class="m_top">
+    <el-backtop>
+      <div class="top_back">
+        <el-icon>
+          <top />
+        </el-icon>
+      </div>
+    </el-backtop>
     <el-container class="w">
       <!-- 主体 -->
       <el-main>
@@ -17,8 +24,18 @@
 </template>
 
 <script setup lang="ts">
+import { Top } from '@element-plus/icons'
+import { reactive } from '@vue/reactivity';
 import Nav from './components/Nav/index.vue'
 import TheWidget from './components/TheWidget/index.vue'
+interface IDataType {
+  routerTime: number,
+  transitionName: string
+}
+const data = reactive<IDataType>({
+  routerTime: 0,
+  transitionName: "slide-left"
+})
 </script>
 
 
@@ -28,5 +45,8 @@ import TheWidget from './components/TheWidget/index.vue'
 }
 .m_top {
   margin-top: 10px;
+}
+.top_back {
+  color: #c15b56;
 }
 </style>

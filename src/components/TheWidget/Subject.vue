@@ -1,5 +1,5 @@
 <template>
-  <div class="subject">
+  <div class="subject" v-loading="data.Loading">
     <el-card>
       <div class="subject_title">前端知识题(每日更新)</div>
       <div class="subject_item" v-for="item in data.SubjectData" :key="item.id">
@@ -19,14 +19,19 @@ import { onMounted } from '@vue/runtime-core';
 import { getSubjectData } from '../../api/getSubjectData'
 interface IDataType {
   SubjectData: Array<any>
+  Loading: boolean
 }
 const data = reactive<IDataType>({
   //* 每日题库数据
-  SubjectData: []
+  SubjectData: [],
+  Loading: true
 })
 const getSubjectDatas = () => {
   getSubjectData().then((res) => {
-    data.SubjectData = res.data.result.today
+    const arr = res.data.result.today
+    arr[3].label = '其它'
+    data.SubjectData = arr
+    data.Loading = false
   })
 }
 onMounted(getSubjectDatas)
@@ -51,17 +56,17 @@ onMounted(getSubjectDatas)
       display: flex;
       align-items: center;
       .item_dian {
+        margin-right: 5px;
         font-weight: 700;
         font-size: 30px;
         margin-bottom: 20px;
         color: #342235;
       }
       .item_tag {
-        margin-left: 10px;
         color: #e9e3e1;
       }
       .item_text {
-        margin-left: 2px;
+        margin-left: 5px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;

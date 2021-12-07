@@ -1,7 +1,9 @@
 <template>
   <div class="w">
     <el-row align="middle">
-      <el-col :span="9" class="title">Chaoerの博客</el-col>
+      <el-col :span="9" class="title">
+        <a href="/">Chaoerの博客</a>
+      </el-col>
       <el-col :span="15">
         <el-menu
           :default-active="data.activeIndex"

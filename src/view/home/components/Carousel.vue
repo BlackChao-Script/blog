@@ -1,9 +1,9 @@
 <template>
-  <div class="carousel">
+  <div class="carousel" v-loading="data.Loading">
     <el-carousel :interval="3000" type="card" height="200px" :initial-index="1">
       <el-carousel-item v-for="item in data.CarouselData" :key="item.id">
         <a :href="item.carousel_link" target="_Blank">
-          <el-image :src="item.carousel_src" :alt="item.carousel_name" fit="fill"></el-image>
+          <el-image :src="item.carousel_src" fit="fill"></el-image>
           <div class="carousel_title">{{ item.carousel_name }}</div>
         </a>
       </el-carousel-item>
@@ -18,10 +18,12 @@ import { useStore } from 'vuex';
 import { getCarouselList } from '../../../api/getHomeData'
 interface IDataType {
   CarouselData: Array<any>
+  Loading: boolean
 }
 const store = useStore()
 const data = reactive<IDataType>({
   CarouselData: [],
+  Loading: true
 })
 const getCarouselData = () => {
   getCarouselList().then((res) => {
@@ -30,6 +32,7 @@ const getCarouselData = () => {
       arr[i].carousel_src = store.state.ImgBaseUrl + arr[i].carousel_src
     }
     data.CarouselData = arr
+    data.Loading = false
   })
 }
 onMounted(getCarouselData)

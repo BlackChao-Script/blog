@@ -1,5 +1,5 @@
 <template>
-  <el-card class="index_box">
+  <el-card class="index_box" v-loading="data.Loading">
     <div class="box_card">
       <el-card
         class="card"
@@ -33,11 +33,13 @@ import { useStore } from 'vuex';
 import { getMdList } from '../../../api/getMdData'
 interface IDataType {
   MdLists: Array<any>
+  Loading: boolean
 }
 const stort = useStore()
 const $router = useRouter()
 const data = reactive<IDataType>({
-  MdLists: []
+  MdLists: [],
+  Loading: true
 })
 const getMdLists = () => {
   getMdList().then((res) => {
@@ -49,6 +51,7 @@ const getMdLists = () => {
       arr[i].create_time = str[0]
     }
     data.MdLists = arr
+    data.Loading = false
   })
 }
 const toListsDet = (md_id: String | Number) => {
