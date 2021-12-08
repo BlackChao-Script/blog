@@ -1,8 +1,10 @@
 <template>
   <el-card v-loading="data.Loading">
     <!-- 面包屑 -->
-    <el-breadcrumb :separator-icon="ArrowRight">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+    <el-breadcrumb>
+      <el-breadcrumb-item>
+        <span class="goback" @click="goBack">返回</span>
+      </el-breadcrumb-item>
       <el-breadcrumb-item>博文内容</el-breadcrumb-item>
     </el-breadcrumb>
     <!-- 创建时间 -->
@@ -20,7 +22,7 @@
 <script setup lang='ts'>
 import { ArrowRight, Calendar } from '@element-plus/icons'
 import { onMounted } from '@vue/runtime-core';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { reactive } from '@vue/reactivity';
 import { getMdDetList } from '../../api/getMdData'
 interface IDataType {
@@ -28,6 +30,7 @@ interface IDataType {
   Loading: boolean
 }
 const $route = useRoute()
+const $router = useRouter()
 const data = reactive<IDataType>({
   MdDetList: [],
   Loading: true
@@ -39,6 +42,9 @@ const getMdDetLists = () => {
     data.Loading = false
   })
 }
+const goBack = () => {
+  $router.go(-1)
+}
 onMounted(getMdDetLists)
 </script>
 
@@ -47,6 +53,12 @@ onMounted(getMdDetLists)
   border: 1px solid #342235;
   .create_time {
     margin-top: 10px;
+  }
+}
+.goback {
+  cursor: pointer;
+  &:hover {
+    color: #b47c6f;
   }
 }
 </style>

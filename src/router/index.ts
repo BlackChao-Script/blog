@@ -1,17 +1,47 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 const routes: Array<RouteRecordRaw> = [
   { path: '', redirect: '/home' },
-  { path: '/home', component: () => import('../view/home/index.vue') },
-  { path: '/lists', component: () => import('../view/Lists/index.vue') },
-  { path: '/aboutMe', component: () => import('../view/aboutMe/index.vue') },
-  { path: '/resource', component: () => import('../view/resource/index.vue') },
   {
-    path: '/LeaveWord',
-    component: () => import('../view/LeaveWord/index.vue'),
+    path: '/home',
+    component: () => import('../view/home/index.vue'),
+    meta: {
+      index: 0,
+    },
   },
   {
-    path: '/ListsDet/:md_id',
-    component: () => import('../view/ListsDet/index.vue'),
+    path: '/lists',
+    component: () => import('../view/lists/index.vue'),
+    meta: {
+      index: 1,
+    },
+  },
+  {
+    path: '/aboutMe',
+    component: () => import('../view/aboutMe/index.vue'),
+    meta: {
+      index: 2,
+    },
+  },
+  {
+    path: '/sort',
+    component: () => import('../view/sort/index.vue'),
+    meta: {
+      index: 3,
+    },
+  },
+  {
+    path: '/leaveWord',
+    component: () => import('../view/leaveWord/index.vue'),
+    meta: {
+      index: 4,
+    },
+  },
+  {
+    path: '/listsDet/:md_id',
+    component: () => import('../view/listsDet/index.vue'),
+    meta: {
+      index: 5,
+    },
   },
 ]
 

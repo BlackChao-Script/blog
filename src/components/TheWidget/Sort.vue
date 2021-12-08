@@ -1,16 +1,32 @@
 <template>
   <div class="sort">
     <el-card>
-      <div class="sort_title">文章分类</div>
+      <Title>
+        <template v-slot:left>
+          <el-icon class="fs">
+            <folder-opened />
+          </el-icon>
+        </template>
+        <template v-slot:centre>
+          <div>文章分类</div>
+        </template>
+        <template v-slot:right>
+          <el-icon>
+            <arrow-right-bold />
+          </el-icon>
+        </template>
+      </Title>
       <div class="sort_item" v-for="item in data.sortLists" :key="item.id">{{ item.sort_name }}</div>
     </el-card>
   </div>
 </template>
 
 <script setup lang='ts'>
+import { FolderOpened, ArrowRightBold } from '@element-plus/icons'
 import { reactive } from '@vue/reactivity';
 import { onMounted } from '@vue/runtime-core';
 import { getSortList } from '../../api/getHomeData'
+import Title from './components/Title.vue'
 interface IDataType {
   sortLists: Array<any>
 }
@@ -29,14 +45,6 @@ onMounted(getSortLists)
 .sort {
   margin-top: 20px;
   .el-card {
-    border: 1px solid #342235;
-    .sort_title {
-      text-align: center;
-      color: #b47c6f;
-      font-size: 20px;
-      font-weight: 700;
-      text-shadow: 0 3px 6px #342235, 0px -2px 1px #342235;
-    }
     .sort_item {
       margin-top: 5px;
       font-size: 16px;

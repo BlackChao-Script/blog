@@ -1,6 +1,15 @@
 <template>
   <el-card class="box_card" shadow="always">
-    <div class="card_title">Chaoer.简介</div>
+    <Title>
+      <template v-slot:left>
+        <el-icon class="fs">
+          <document-remove />
+        </el-icon>
+      </template>
+      <template v-slot:centre>
+        <div class="card_title">Chaoer.简介</div>
+      </template>
+    </Title>
     <div class="card_message">
       <el-row align="middle" v-for="item in data.IntroductionLists" :key="item.id">
         <el-col :span="1">
@@ -30,10 +39,11 @@
 </template>
 
 <script setup lang='ts'>
-import { Minus } from '@element-plus/icons'
+import { DocumentRemove, Minus } from '@element-plus/icons'
 import { reactive } from '@vue/reactivity';
 import { onMounted } from '@vue/runtime-core';
 import { useStore } from 'vuex';
+import Title from './components/Title.vue'
 import { getIntroductionList, getIconList } from '../../api/getHomeData'
 interface IDataType {
   IntroductionLists: Array<any>,
@@ -66,13 +76,13 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .box_card {
+  margin-top: 10px;
   background-color: #c15b56;
-  border: 1px solid #342235;
+  border: 1px solid #c15b56;
   .card_title {
     color: #b47c6f;
     font-size: 20px;
     font-weight: 700;
-    text-align: center;
     text-shadow: 0 3px 6px #c15b56, 0px -2px 1px #342235;
   }
   .card_message {

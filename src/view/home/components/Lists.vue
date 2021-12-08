@@ -62,15 +62,15 @@ onMounted(getMdLists)
 
 <style scoped lang="scss">
 .index_box {
-  // background-color: #c15b56;
-  border: 1px solid #342235;
+  border: 1px solid #b47c6f;
   .box_card {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
     justify-content: space-around;
     .card {
       cursor: pointer;
-      width: 270px;
+      width: 30%;
       height: 360px;
       margin-bottom: 10px;
       .card_img {
@@ -96,7 +96,7 @@ onMounted(getMdLists)
       }
       .card_title {
         font-size: 14px;
-        color: #b47c6f;
+        color: #342235;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
@@ -119,6 +119,9 @@ onMounted(getMdLists)
           color: #342235;
         }
       }
+    }
+    &:not(:nth-child(3n)) {
+      margin-right: calc(4% / 3);
     }
   }
 }

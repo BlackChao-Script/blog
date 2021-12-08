@@ -1,7 +1,17 @@
 <template>
   <div class="subject" v-loading="data.Loading">
     <el-card>
-      <div class="subject_title">前端知识题(每日更新)</div>
+      <Title>
+        <template v-slot:left>
+          <el-icon class="fs">
+            <question-filled />
+          </el-icon>
+        </template>
+        <template v-slot:centre>
+          <div>前端知识题(每日更新)</div>
+        </template>
+      </Title>
+
       <div class="subject_item" v-for="item in data.SubjectData" :key="item.id">
         <div class="item_dian">.</div>
         <div class="item_tag">[{{ item.label }}]</div>
@@ -14,9 +24,11 @@
 </template>
 
 <script setup lang='ts'>
+import { QuestionFilled } from '@element-plus/icons'
 import { reactive } from '@vue/reactivity';
 import { onMounted } from '@vue/runtime-core';
 import { getSubjectData } from '../../api/getSubjectData'
+import Title from './components/Title.vue'
 interface IDataType {
   SubjectData: Array<any>
   Loading: boolean
@@ -29,9 +41,13 @@ const data = reactive<IDataType>({
 const getSubjectDatas = () => {
   getSubjectData().then((res) => {
     const arr = res.data.result.today
-    arr[3].label = '其它'
+    if (arr.length == '3') {
+      arr[3].label = '其它'
+    }
     data.SubjectData = arr
     data.Loading = false
+  }).catch((err) => {
+    console.log(err)
   })
 }
 onMounted(getSubjectDatas)
@@ -41,10 +57,7 @@ onMounted(getSubjectDatas)
 .subject {
   margin-top: 20px;
   .el-card {
-    border: 1px solid #342235;
-    // background-color: #c15b56;
     .subject_title {
-      text-align: center;
       color: #b47c6f;
       font-size: 20px;
       font-weight: 700;

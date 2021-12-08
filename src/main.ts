@@ -17,14 +17,15 @@ import createLineNumbertPlugin from '@kangc/v-md-editor/lib/plugins/line-number/
 import createCopyCodePlugin from '@kangc/v-md-editor/lib/plugins/copy-code/index'
 import '@kangc/v-md-editor/lib/plugins/copy-code/copy-code.css'
 
-//! 显示代码行数
-VMdPreview.use(createLineNumbertPlugin())
-//! 快速复制代码
-VMdPreview.use(createCopyCodePlugin())
 //! 使用主题
 VMdPreview.use(githubTheme, {
   Hljs: hljs,
 })
+//! 显示代码行数
+VMdPreview.use(createLineNumbertPlugin())
+//! 快速复制代码
+VMdPreview.use(createCopyCodePlugin())
+
 const app = createApp(App)
 app.use(VMdPreview)
 app.use(router)

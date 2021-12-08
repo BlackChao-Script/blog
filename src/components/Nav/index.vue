@@ -4,7 +4,7 @@
       <el-col :span="9" class="title">
         <a href="/">Chaoerの博客</a>
       </el-col>
-      <el-col :span="15">
+      <el-col :push="2" :span="15">
         <el-menu
           :default-active="data.activeIndex"
           class="el-menu-demo"
@@ -25,11 +25,11 @@
             </el-icon>
             <span>技术博文</span>
           </el-menu-item>
-          <el-menu-item index="/resource">
+          <el-menu-item index="/sort">
             <el-icon>
               <files />
             </el-icon>
-            <span>前端资源</span>
+            <span>分类</span>
           </el-menu-item>
           <el-menu-item index="/aboutMe">
             <el-icon>
@@ -37,7 +37,7 @@
             </el-icon>
             <span>关于我</span>
           </el-menu-item>
-          <el-menu-item index="/LeaveWord">
+          <el-menu-item index="/leaveWord">
             <el-icon>
               <edit />
             </el-icon>
@@ -50,7 +50,6 @@
 </template>
 
 <script setup lang='ts'>
-//! 引入svg图标
 import { PriceTag, Document, Files, User, Edit } from '@element-plus/icons'
 import { reactive } from '@vue/reactivity';
 
@@ -67,6 +66,7 @@ const data = reactive<IDataType>({
 
 <style scoped lang="scss">
 .el-menu {
+  margin-left: 150px;
   border-bottom: 0 !important;
   background-color: rgba(0, 0, 0, 0);
 }
