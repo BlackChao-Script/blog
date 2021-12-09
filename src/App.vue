@@ -13,9 +13,12 @@
     <el-container class="w">
       <!-- 主体 -->
       <el-main>
-        <router-view class="router-view" v-slot="{ Component }">
+        <router-view v-slot="{ Component }">
           <transition :name="transitionName">
-            <component :is="Component" />
+            <keep-alive v-if="$route.meta.keepAlive">
+              <component :is="Component" />
+            </keep-alive>
+            <component :is="Component" v-else />
           </transition>
         </router-view>
       </el-main>
@@ -28,16 +31,15 @@
 </template>
 
 <script setup lang="ts">
+import Nav from './components/Nav/index.vue'
+import TheWidget from './components/TheWidget/index.vue'
 import { Top } from '@element-plus/icons'
 import { ref } from '@vue/reactivity';
 import { watch } from '@vue/runtime-core';
 import { useRoute } from 'vue-router';
-import Nav from './components/Nav/index.vue'
-import TheWidget from './components/TheWidget/index.vue'
-
 const $route = useRoute()
 const transition: Array<string> = ['slide-left', 'slide-right']
-let transitionName = ref<any>(transition[0])
+let transitionName = ref<string>(transition[0])
 //! 监控路由的变化
 watch(
   () => $route.meta.index,
@@ -65,7 +67,8 @@ watch(
 .slide-left-enter-active,
 .slide-left-leave-active {
   will-change: transform;
-  transition: all 500ms;
+  transition: all 0.5s;
+  z-index: 99;
 }
 
 .slide-right-enter {

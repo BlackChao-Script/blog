@@ -41,7 +41,7 @@ const data = reactive<IDataType>({
 const getSubjectDatas = () => {
   getSubjectData().then((res) => {
     const arr = res.data.result.today
-    if (arr.length == '3') {
+    if (arr.length == '4') {
       arr[3].label = '其它'
     }
     data.SubjectData = arr
@@ -77,6 +77,7 @@ onMounted(getSubjectDatas)
       }
       .item_tag {
         color: #e9e3e1;
+        width: 50px;
       }
       .item_text {
         margin-left: 5px;

@@ -25,12 +25,6 @@
             </el-icon>
             <span>技术博文</span>
           </el-menu-item>
-          <el-menu-item index="/sort">
-            <el-icon>
-              <files />
-            </el-icon>
-            <span>分类</span>
-          </el-menu-item>
           <el-menu-item index="/aboutMe">
             <el-icon>
               <user />
@@ -50,7 +44,7 @@
 </template>
 
 <script setup lang='ts'>
-import { PriceTag, Document, Files, User, Edit } from '@element-plus/icons'
+import { PriceTag, Document, User, Edit } from '@element-plus/icons'
 import { reactive } from '@vue/reactivity';
 
 //! 定义接口

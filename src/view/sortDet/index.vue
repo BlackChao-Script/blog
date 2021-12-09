@@ -39,22 +39,26 @@
 <script setup lang='ts'>
 import { CollectionTag } from '@element-plus/icons'
 import { reactive } from '@vue/reactivity';
-import { onMounted } from '@vue/runtime-core';
-import { useRouter } from 'vue-router';
+import { watchEffect } from '@vue/runtime-core';
+import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
-import { getMdList } from '../../api/getMdData'
+import { getSortDetData } from '../../api/getSortData'
 interface IDataType {
   MdListData: Array<any>
   Loading: boolean
 }
 const store = useStore()
 const $router = useRouter()
+const $route = useRoute()
 const data = reactive<IDataType>({
   MdListData: [],
   Loading: true
 })
-const getMdLists = () => {
-  getMdList().then((res) => {
+const toMdDet = (md_id: Number | String) => {
+  $router.push(`/ListsDet/${md_id}`)
+}
+watchEffect(() => {
+  getSortDetData($route.params.sort_id).then((res) => {
     const arr = res.data.result.list
     for (const i in arr) {
       arr[i].markdown_img = store.state.ImgBaseUrl + arr[i].markdown_img
@@ -63,11 +67,7 @@ const getMdLists = () => {
     data.MdListData = arr
     data.Loading = false
   })
-}
-const toMdDet = (md_id: Number | String) => {
-  $router.push(`/ListsDet/${md_id}`)
-}
-onMounted(getMdLists)
+})
 </script>
 
 <style scoped lang="scss">

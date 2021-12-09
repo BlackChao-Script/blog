@@ -96,7 +96,7 @@ onMounted(getMdLists)
       }
       .card_title {
         font-size: 14px;
-        color: #342235;
+        color: #b47c6f;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;

@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang='ts'>
-import { ArrowRight, Calendar } from '@element-plus/icons'
+import { Calendar } from '@element-plus/icons'
 import { onMounted } from '@vue/runtime-core';
 import { useRoute, useRouter } from 'vue-router';
 import { reactive } from '@vue/reactivity';
