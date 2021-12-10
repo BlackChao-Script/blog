@@ -13,7 +13,7 @@
             <apple />
           </el-icon>
         </div>
-        <div class="item_text">年龄/21</div>
+        <div class="item_text">年龄/20</div>
       </div>
       <div class="t_item">
         <div class="item_icon">

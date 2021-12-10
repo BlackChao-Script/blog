@@ -67,7 +67,7 @@ watch(
 .slide-left-enter-active,
 .slide-left-leave-active {
   will-change: transform;
-  transition: all 0.5s;
+  transition: all 0.4s;
   z-index: 99;
 }
 
