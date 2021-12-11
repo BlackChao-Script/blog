@@ -34,7 +34,6 @@ interface IDataType {
   Loading: boolean
 }
 const data = reactive<IDataType>({
-  //* 每日题库数据
   SubjectData: [],
   Loading: true
 })

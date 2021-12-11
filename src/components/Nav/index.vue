@@ -2,7 +2,7 @@
   <div class="w">
     <el-row align="middle">
       <el-col :push="1" :span="6" class="title">
-        <a href="/">Chaoerの博客</a>
+        <a href="/">Chaoer的博客</a>
       </el-col>
       <el-col :push="4" :span="16">
         <el-menu
@@ -91,7 +91,7 @@
               <template #title>
                 <div class="register_title">注册</div>
               </template>
-              <el-form ref="registerForm" :model="data.registerData" :rules="data.rules">
+              <el-form ref="registerForm" :model="data.registerData" :rules="data.registerRules">
                 <el-form-item prop="name">
                   <el-input placeholder="用户名" v-model="data.registerData.name"></el-input>
                 </el-form-item>
@@ -106,11 +106,16 @@
           </div>
           <!-- 登录表 -->
           <div class="login">
-            <el-dialog width="15%" v-model="data.showLogin" :show-close="false" @open="opendialog">
+            <el-dialog
+              width="15%"
+              v-model="store.state.showLogin"
+              :show-close="false"
+              @open="opendialog"
+            >
               <template #title>
                 <div class="login_title">登录</div>
               </template>
-              <el-form ref="LoginForm" :model="data.loginData" :rules="data.rules">
+              <el-form ref="LoginForm" :model="data.loginData" :rules="data.loginRules">
                 <el-form-item prop="name">
                   <el-input placeholder="用户名" v-model="data.loginData.name"></el-input>
                 </el-form-item>
@@ -134,11 +139,12 @@
 </template>
 
 <script setup lang='ts'>
-// import Login from './login.vue'
 import { PriceTag, Document, User, Edit, Avatar, Notification } from '@element-plus/icons'
 import { reactive, ref } from '@vue/reactivity';
 import { onMounted } from '@vue/runtime-core';
-import { register, login } from '../../api/login'
+import { useStore } from 'vuex';
+import { register, login, getUserImg } from '../../api/login'
+import { ElMessage } from 'element-plus'
 
 //! 定义接口
 interface IDataType {
@@ -148,9 +154,11 @@ interface IDataType {
   showLogin: boolean,
   registerData: any,
   loginData: any,
-  rules: any,
+  registerRules: any,
+  loginRules: any,
   token: any
 }
+
 //! 数据
 const data = reactive<IDataType>({
   activeIndex: '/home',
@@ -165,7 +173,7 @@ const data = reactive<IDataType>({
     name: '',
     password: ''
   },
-  rules: {
+  registerRules: {
     name: [
       {
         required: true,
@@ -179,18 +187,52 @@ const data = reactive<IDataType>({
         message: '请输入密码',
         trigger: 'blur',
       },
+      {
+        min: 6,
+        max: 12,
+        message: '密码长度在6-12之间',
+        trigger: 'blur',
+      },
+    ],
+  },
+  loginRules: {
+    name: [
+      {
+        required: true,
+        message: '请输入用户名',
+        trigger: 'blur',
+      },
+    ],
+    password: [
+      {
+        required: true,
+        message: '请输入密码',
+        trigger: 'blur',
+      },
+      {
+        min: 6,
+        max: 12,
+        message: '密码长度在6-12之间',
+        trigger: 'blur',
+      },
     ],
   },
   token: ''
 })
+
+//! 使用vuex
+const store = useStore()
+
+//! 获取ref
 const registerForm = ref<any>(null)
 const LoginForm = ref<any>(null)
+
 //! 方法
 const clickShowRegister = () => {
   data.showRegister = true
 }
 const clickShowLogin = () => {
-  data.showLogin = true
+  store.state.showLogin = true
 }
 const opendialog = () => {
   data.registerData.name = ''
@@ -201,7 +243,15 @@ const opendialog = () => {
 const submitRegisterFrom = () => {
   registerForm.value.validate((valid: any) => {
     if (!valid) return
-    register(data.registerData.name, data.registerData.password)
+    register(data.registerData.name, data.registerData.password).then(() => {
+      ElMessage({
+        message: '注册成功',
+        type: 'success',
+      })
+    }).catch(() => {
+      ElMessage.error('注册失败')
+    })
+
     data.showRegister = false
   })
 }
@@ -209,19 +259,35 @@ const submitLoginFrom = () => {
   LoginForm.value.validate((valid: any) => {
     if (!valid) return
     login(data.loginData.name, data.loginData.password).then((res) => {
-      data.showLogin = false
+      store.state.showLogin = false
       window.sessionStorage.setItem('token', res.data.result.token)
       window.sessionStorage.setItem('name', data.loginData.name)
+      store.state.userName = window.sessionStorage.getItem('name')
       data.showuser = true
+      ElMessage({
+        message: '登录成功',
+        type: 'success',
+      })
+      getUserImg(store.state.userName).then((res) => {
+        const img = store.state.ImgBaseUrl + res.data.result.user_img
+        window.sessionStorage.setItem('img', img)
+        store.state.userImg = window.sessionStorage.getItem('img')
+      })
     })
+
   })
 }
 const nextLogin = () => {
   window.sessionStorage.removeItem('token')
-  data.token = false
+  window.sessionStorage.removeItem('name')
+  window.sessionStorage.removeItem('img')
   data.loginData.name = ''
+  store.state.userName = ''
+  store.state.userImg = ''
+  data.token = false
   data.showuser = false
 }
+//! 生命周期函数
 onMounted(() => {
   data.token = window.sessionStorage.getItem('token')
   data.loginData.name = window.sessionStorage.getItem('name')

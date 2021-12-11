@@ -22,3 +22,12 @@ export const login = (user_name: string, password: string) => {
     },
   })
 }
+//! 获取用户头像
+export const getUserImg = (user_name: any) => {
+  return request({
+    url: 'user',
+    params: {
+      user_name,
+    },
+  })
+}
