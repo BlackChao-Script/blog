@@ -79,6 +79,7 @@ onMounted(getSubjectDatas)
         width: 50px;
       }
       .item_text {
+        width: 200px;
         margin-left: 5px;
         white-space: nowrap;
         overflow: hidden;

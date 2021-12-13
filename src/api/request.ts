@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export function request(config: any) {
   const instance = axios.create({
-    baseURL: 'http://localhost:8080/',
+    baseURL: '/api',
     timeout: 5 * 1000,
   })
   //请求拦截

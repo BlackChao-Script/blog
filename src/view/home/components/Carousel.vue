@@ -1,7 +1,7 @@
 <template>
-  <div class="carousel" v-loading="data.Loading">
+  <div class="carousel">
     <el-carousel :interval="3000" type="card" height="200px" :initial-index="1">
-      <el-carousel-item v-for="item in data.CarouselData" :key="item.id">
+      <el-carousel-item v-loading="data.Loading" v-for="item in data.CarouselData" :key="item.id">
         <a :href="item.carousel_link" target="_Blank">
           <el-image :src="item.carousel_src" fit="fill"></el-image>
           <div class="carousel_title">{{ item.carousel_name }}</div>

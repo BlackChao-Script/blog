@@ -1,11 +1,53 @@
-# Vue 3 + Typescript + Vite
+# 个人博客开发
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 前言
 
-## Recommended IDE Setup
+一直想用 node 写个后台来用用，主要用来尝试使用 node 搭建接口，大部分时间精力花费在后台接口的划分与搭建。最后做了一个个人博客网站(包括后台管理)。
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+博客内容展示：主要是用来展示 MarkDown 文件格式的笔记(记录学习)。
 
-## Type Support For `.vue` Imports in TS
+接口项目地址：https://github.com/BlackChao-Script/blogApi
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+后台管理项目地址：
+
+## 技术栈
+
+Vue3 全家桶+Vite+Ts+Axios+ElementPlus+Node+Koa2+MySQL+Sequelize
+
+渲染 MarkDown 文件主要用 **v-md-editor** 插件
+
+选择**v-md-editor**的主要原因是他对 Vue3+Ts+vite 的支持，还有一个中文文档，比较友好
+
+## 项目运行
+
+```
+git clone https://github.com/BlackChao-Script/blog.git
+// 进入项目根目录 (下载依赖)
+npm install
+// 运行
+npm run dev
+```
+
+## 项目目录
+```
+    .
+    |-- index.html
+    |-- vite.config.ts
+    |-- src															// 源码目录
+        |-- App.vue											// 页面入口文件
+        |-- env.d.ts										// ts导入排错
+        |-- main.ts											// 程序入口文件
+        |-- api                         // 请求接口
+        |-- assets											// 静态资源文件
+        |-- components							    // 组件
+        |-- router											// 路由
+        |-- store											  // vuex状态管理
+        |-- style											  // 样式
+        |-- view											  // 页面
+            |-- aboutMe									// 关于我页面
+            |-- home                    // 首页
+            |-- leaveWord						    // 留言
+            |-- lists                   // 博文列表
+            |-- listsDet                // 博文详细
+            |-- sortDet									// 分类详细
+```
