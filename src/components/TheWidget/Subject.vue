@@ -45,8 +45,6 @@ const getSubjectDatas = () => {
     }
     data.SubjectData = arr
     data.Loading = false
-  }).catch((err) => {
-    console.log(err)
   })
 }
 onMounted(getSubjectDatas)

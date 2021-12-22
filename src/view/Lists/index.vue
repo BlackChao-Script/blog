@@ -33,6 +33,20 @@
         </div>
       </div>
     </el-card>
+    <div class="demo-pagination-block">
+      <el-row type="flex" justify="center">
+        <el-col :span="5">
+          <el-pagination
+            :page-sizes="[2, 4, 6]"
+            :page-size="data.pageSize"
+            layout="sizes, prev, pager, next"
+            :total="data.total"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+          ></el-pagination>
+        </el-col>
+      </el-row>
+    </div>
   </div>
 </template>
 
@@ -46,23 +60,42 @@ import { getMdList } from '../../api/getMdData'
 interface IDataType {
   MdListData: Array<any>
   Loading: boolean
+  paegNum: number
+  total: number
+  pageSize: number
 }
 const store = useStore()
 const $router = useRouter()
 const data = reactive<IDataType>({
   MdListData: [],
-  Loading: true
+  Loading: true,
+  paegNum: 1,
+  total: 0,
+  pageSize: 4
 })
 const getMdLists = () => {
-  getMdList().then((res) => {
+  getMdList(data.paegNum, data.pageSize).then((res) => {
     const arr = res.data.result.list
     for (const i in arr) {
       arr[i].markdown_img = store.state.ImgBaseUrl + arr[i].markdown_img
       arr[i].create_time = arr[i].create_time.split('T')[0]
     }
-    data.MdListData = arr
     data.Loading = false
+    data.total = res.data.result.total * 1
+    data.paegNum = res.data.result.paegNum * 1
+    data.pageSize = res.data.result.pageSize * 1
+    data.MdListData = arr
   })
+}
+//* 改变每页条数时触发的钩子
+const handleSizeChange = (val: any) => {
+  data.pageSize = val
+  getMdLists()
+}
+//* 改变当前页时触发的钩子
+const handleCurrentChange = (val: any) => {
+  data.paegNum = val
+  getMdLists()
 }
 const toMdDet = (md_id: Number | String) => {
   $router.push(`/ListsDet/${md_id}`)
@@ -72,6 +105,7 @@ onMounted(getMdLists)
 
 <style scoped lang="scss">
 .bolgs {
+  margin-bottom: 50px;
   .bolgs_item {
     border: 1px solid #b47c6f;
     margin-bottom: 2px;

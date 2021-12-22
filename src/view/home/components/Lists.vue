@@ -42,7 +42,7 @@ const data = reactive<IDataType>({
   Loading: true
 })
 const getMdLists = () => {
-  getMdList().then((res) => {
+  getMdList(1, 6).then((res) => {
     const arr = res.data.result.list
     let str: Array<any> = []
     for (const i in arr) {
