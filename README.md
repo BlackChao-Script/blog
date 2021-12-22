@@ -33,21 +33,21 @@ npm run dev
 	.
 	|-- index.html
 	|-- vite.config.ts										
-	|-- src													// 源码目录
-	    |-- App.vue											 // 页面入口文件
-	    |-- env.d.ts										 // ts导入排错
-	    |-- main.ts											 // 程序入口文件
-	    |-- api                                                  // 请求接口
-	    |-- assets											 // 静态资源文件
-	    |-- components							               // 组件
-	    |-- router											 // 路由
-	    |-- store											 // vuex状态管理
-	    |-- style											 // 样式
-	    |-- view											 // 页面
-	        |-- aboutMe										  // 关于我页面
-	        |-- home                                              // 首页
-	        |-- leaveWord						                // 留言
-	        |-- lists                                             // 博文列表
-	        |-- listsDet                                          // 博文详细
-	        |-- sortDet									       // 分类详细
+	|-- src								// 源码目录
+	    |-- App.vue							// 页面入口文件
+	    |-- env.d.ts						// ts导入排错
+	    |-- main.ts							// 程序入口文件
+	    |-- api                                                     // 请求接口
+	    |-- assets							// 静态资源文件
+	    |-- components					        // 组件
+	    |-- router						        // 路由
+	    |-- store						        // vuex状态管理
+	    |-- style					                // 样式
+	    |-- view							// 页面
+	        |-- aboutMe						// 关于我页面
+	        |-- home                                                // 首页
+	        |-- leaveWord						// 留言
+	        |-- lists                                               // 博文列表
+	        |-- listsDet                                            // 博文详细
+	        |-- sortDet					        // 分类详细
 
